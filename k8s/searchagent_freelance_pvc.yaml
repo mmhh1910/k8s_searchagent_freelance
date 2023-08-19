@@ -2,7 +2,19 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: searchagent-freelancer-pvc
+  name: searchagent-freelancer-oracle-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "oci-fss-sc"
+  resources:
+    requests:
+      storage: 10Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: searchagent-freelancer-kubernetes-pvc
 spec:
   accessModes:
     - ReadWriteMany

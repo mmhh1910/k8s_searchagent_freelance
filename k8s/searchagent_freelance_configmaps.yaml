@@ -11,3 +11,16 @@ data:
   ENABLE_FREELANCE_DE: "1"
   ENABLE_FREELANCERMAP: "1"
   ENABLE_ETENGO: "1"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: searchagent-freelancer-kubernetes
+data:
+  SEARCH_TERM: "Kubernetes"
+  COLORIZE_TERMS: '["Hamburg", "hamburg", "salaryFrom", "salaryTo","salaryAnnum"]'
+  ENABLE_GULP: "0"
+  ENABLE_HAYS: "0"
+  ENABLE_FREELANCE_DE: "0"
+  ENABLE_FREELANCERMAP: "1"
+  ENABLE_ETENGO: "1"

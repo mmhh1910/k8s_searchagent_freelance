@@ -39,7 +39,7 @@ search_term = smtp_from = os.getenv("SEARCH_TERM")
 colorize_terms = json.loads(os.getenv("COLORIZE_TERMS"))
 
 # "Fixed" configurations
-enable_email = False
+enable_email = True
 enable_projektwerk = False  # moved to freelancermap
 enable_allgeier = False  # api no longer avail
 enable_computerfutures = False  # changed api
@@ -80,6 +80,7 @@ try:
         print(entries_fn, " exists")
         with open(entries_fn, "r") as fp:
             entries = json.load(fp)
+        print(f"{len(entries)} in json file")
     else:
         print(entries_fn, " does not exists")
 
@@ -121,6 +122,7 @@ try:
 
     if enable_gulp:
         # gulp
+        print(f"Running GULP scan")
         page = 0
         try:
             while True:
@@ -184,6 +186,7 @@ try:
 
     if enable_hays:
         # Hays
+        print(f"Running Hays scan")
         page = 1
         try:
             while True:
@@ -221,6 +224,7 @@ try:
 
     if enable_freelance_de:
         # freelance.de
+        print(f"Running freelance.de scan")
         offset = 0
         try:
             while True:
@@ -260,6 +264,7 @@ try:
 
     if enable_projektwerk:
         # projektwerk
+        print(f"Running projektwerk scan")
         page = 1
         try:
             while True:
@@ -295,6 +300,7 @@ try:
 
     if enable_freelancermap:
         # freelancermap
+        print(f"Running freelancermap scan")
         page = 1
         try:
             while True:
@@ -348,6 +354,7 @@ try:
             )
 
     if enable_allgeier:
+        print(f"Running allgeier scan")
         offset = 0
         try:
             while True:
@@ -393,6 +400,7 @@ try:
             problems.append("allgeier: " + str(E) + "\n\n" + traceback.format_exc())
 
     if enable_computerfutures:
+        print(f"Running computerfutures scan")
         offset = 0
         page = 0
         try:
@@ -468,7 +476,7 @@ try:
             )
 
     if enable_etengo:
-        # Etengo
+        print(f"Running Etengo scan")
         try:
             main_url = "https://www.etengo.de/?action=etengo%2Fproject%2Ffilter&zip=&branch=&text=Oracle"
             time.sleep(2)
@@ -548,8 +556,11 @@ try:
 
     with open(entries_fn, "w") as fp:
         json.dump(entries, fp, indent=4, sort_keys=True, default=str)
+    print(f"{len(entries)} in json file")
 
 except Exception as E:
     text = str(E) + "\n\n" + traceback.format_exc()
     send_mail(smtp_to, "Exception searching for new projects", text)
     print(str(E) + "\n\n" + traceback.format_exc())
+
+print(f"Done.")
