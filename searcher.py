@@ -13,6 +13,8 @@ from email.mime.text import MIMEText
 import re
 import traceback
 
+entries_fn = "/data/entries.json"
+
 
 def get_boolean_env(varname):
     v = os.getenv(varname)
@@ -74,9 +76,12 @@ try:
             e = hrefs[href]
             e["still_active"] = 1
 
-    if path.exists("entries.json"):
-        with open("entries.json", "r") as fp:
+    if path.exists(entries_fn):
+        print(entries_fn, " exists")
+        with open(entries_fn, "r") as fp:
             entries = json.load(fp)
+    else:
+        print(entries_fn, " does not exists")
 
     for entry in entries:
         hrefs[entry["href"]] = entry
@@ -541,7 +546,7 @@ try:
 
         send_mail(smtp_to, str(len(new_entries)) + " new projects", text, text_html)
 
-    with open("entries.json", "w") as fp:
+    with open(entries_fn, "w") as fp:
         json.dump(entries, fp, indent=4, sort_keys=True, default=str)
 
 except Exception as E:

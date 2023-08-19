@@ -20,7 +20,9 @@ spec:
           containers:
             - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
               name: searchagent-freelancer
-
+              volumeMounts:
+                - name: searchagent-freelancer-volume
+                  mountPath: /data
               env:
                 - name: SEARCH_TERM
                   valueFrom:
@@ -83,7 +85,14 @@ spec:
                     secretKeyRef:
                       name: searchagent-freelancer
                       key: SMTP_FROM
-
+          # volumes:
+          #   - name: shared-data
+          #     persistentVolumeClaim:
+          #       claimName: shared-pvc
+          volumes:
+            - name: searchagent-freelancer-volume
+              persistentVolumeClaim:
+                claimName: searchagent-freelancer-pvc
           imagePullSecrets:
             - name: registry-secret
           restartPolicy: OnFailure
