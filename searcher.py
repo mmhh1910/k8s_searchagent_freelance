@@ -35,7 +35,7 @@ enable_freelance_de = get_boolean_env("ENABLE_FREELANCE_DE")
 enable_freelancermap = get_boolean_env("ENABLE_FREELANCERMAP")
 enable_etengo = get_boolean_env("ENABLE_ETENGO")
 
-search_term = smtp_from = os.getenv("SEARCH_TERM")
+search_term = os.getenv("SEARCH_TERM")
 colorize_terms = json.loads(os.getenv("COLORIZE_TERMS"))
 
 # "Fixed" configurations
