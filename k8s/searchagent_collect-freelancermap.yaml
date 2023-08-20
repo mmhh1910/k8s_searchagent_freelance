@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: collect-freelancermap-tags
+spec:
+  containers:
+    - command:
+        - python3
+        - collect_freelancermap_tags.py
+      image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
+      imagePullPolicy: Always
+      name: collect-freelancermap-tags3
+      resources: {}
+  restartPolicy: Never
+  imagePullSecrets:
+    - name: registry-secret
