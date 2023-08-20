@@ -207,3 +207,4 @@ terraform.rc
 *secret*.yaml
 *secrets*.yaml
 
+old_scripts/*
