@@ -13,7 +13,7 @@ Apply to setup the cronjob searches:
     
 Apply to run the freelancermap tag collector once:
     
-    k apply -f k8s/searchagent_collect-freelancermap.yaml
+    k apply -f k8s/searchagent_collect-freelancermap_pod.yaml
 
 
 
