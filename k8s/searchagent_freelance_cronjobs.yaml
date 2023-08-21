@@ -181,7 +181,7 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: searchagent-freelancer
-                      key: SMTP_TO
+                      key: SMTP_TO_KUBERNETES
                 - name: SMTP_FROM
                   valueFrom:
                     secretKeyRef:
