@@ -187,3 +187,66 @@ spec:
                     secretKeyRef:
                       name: searchagent-freelancer
                       key: SMTP_FROM
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: searchagent-baderland
+  labels:
+    app: searchagent-baderland
+
+spec:
+  timeZone: "Europe/Berlin"
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: searchagent-baderland
+
+        spec:
+          imagePullSecrets:
+            - name: registry-secret
+          restartPolicy: OnFailure
+          volumes:
+            - name: searchagent-baderland-volume
+              persistentVolumeClaim:
+                claimName: searchagent-baderland-pvc
+          containers:
+            - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
+              name: searchagent-baderland
+              command:
+                - python3
+                - searcher_baderland.py
+              volumeMounts:
+                - name: searchagent-baderland-volume
+                  mountPath: /data
+              env:
+                - name: SMTP_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_HOST
+                - name: SMTP_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_USERNAME
+                - name: SMTP_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_PASSWORD
+                - name: SMTP_TO
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_TO_BADERLAND
+                - name: SMTP_FROM
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_FROM
