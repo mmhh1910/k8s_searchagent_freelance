@@ -73,32 +73,27 @@ try:
     # datestring = a.strftime("%Y-%m-%d")
     datestring = "2023-07-05"
 
-    main_url = "https://www.baederland-shop.de/kurse?_="
+    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bdate%5D=01.12.2023"
+
     headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "authority": "www.baederland-shop.de",
-        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
         "accept-language": "de-DE,de;q=0.6",
-        "content-type": "application/x-www-form-urlencoded",
-        "origin": "https://www.baederland-shop.de",
-        "referer": "https://www.baederland-shop.de/kurse",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "sec-ch-ua": '"Chromium";v="118", "Brave";v="118", "Not=A?Brand";v="99"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
         "sec-fetch-site": "same-origin",
+        "sec-fetch-user": "?1",
         "sec-gpc": "1",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36",
-        "x-phery": "1",
-        "x-requested-with": "XMLHttpRequest",
+        "upgrade-insecure-requests": "1",
+        "referrer": "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bdate%5D=25.12.2023",
     }
 
-    data = (
-        "args[kurskategorie_id]=8&args[kurstyp_id]=60&args[standort_id]=17&args[datum]="
-        + datestring
-        + "&phery[method]=POST&phery[submit_id]=kurse-filter&phery[remote]=get_kurse"
-    )
-    req = requests.post(
+    req = requests.get(
         main_url,
-        data=data,
         json=None,
         proxies=None,
         timeout=30,
@@ -115,40 +110,12 @@ try:
         send_mail(
             smtp_to,
             "Baederland Update Aqua Rueckenfit",
-            'Update auf <a href="https://www.baederland-shop.de/kurse">https://www.baederland-shop.de/kurse</a> <p> '
+            'Update auf <a href="'
+            + main_url
+            + '">Baederland Kurssuche</a> <p> '
             + html,
             html,
         )
-
-    # data = (
-    #     "args[kurskategorie_id]=3&args[kurstyp_id]=49&args[standort_id]=17&args[datum]="
-    #     + datestring
-    #     + "&phery[method]=POST&phery[submit_id]=kurse-filter&phery[remote]=get_kurse"
-    # )
-    # req = requests.post(
-    #     main_url,
-    #     data=data,
-    #     json=None,
-    #     proxies=None,
-    #     timeout=30,
-    #     headers=headers,
-    # )
-    # print(req.text)
-    # if lastresult2 != req.text:
-    #     text_file = open("/data/baederland2.last", "w")
-    #     text_file.write(req.text)
-    #     text_file.close()
-    #     j = json.loads(req.text)
-    #     html = j["#buchung"][0]["a"][0]
-    #     # print(html)
-    #     send_mail(
-    #         smtp_to,
-    #         "Baederland Update Aqua Gym Praevention",
-    #         "Update auf https://www.baederland-shop.de/kurse ",
-    #         'Update auf <a href="https://www.baederland-shop.de/kurse">https://www.baederland-shop.de/kurse</a> <p> '
-    #         + html,
-    #     )
-
 
 except Exception as E:
     text = str(E) + "\n\n" + traceback.format_exc()
