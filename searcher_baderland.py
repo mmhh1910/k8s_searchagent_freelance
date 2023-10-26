@@ -73,7 +73,7 @@ try:
     # datestring = a.strftime("%Y-%m-%d")
     datestring = "2023-07-05"
 
-    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bdate%5D=01.12.2023"
+    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bdate%5D=25.12.2023"
 
     headers = {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -101,12 +101,14 @@ try:
     )
     print(req.text)
     if lastresult1 != req.text:
-        text_file = open("/data/baederland1.last", "w")
-        text_file.write(req.text)
-        text_file.close()
-        j = json.loads(req.text)
-        html = j["#buchung"][0]["a"][0]
-        # print(html)
+        html = ""
+        bs = BeautifulSoup(req.text, "html.parser")
+
+        srs = bs.findAll("div", class_="course-overview")
+        for sr in srs:
+            html = str(sr)
+            break
+        print(html)
         send_mail(
             smtp_to,
             "Baederland Update Aqua Rueckenfit",
@@ -114,8 +116,14 @@ try:
             + main_url
             + '">Baederland Kurssuche</a> <p> '
             + html,
-            html,
+            'Update auf <a href="'
+            + main_url
+            + '">Baederland Kurssuche</a> <p> '
+            + html,
         )
+        text_file = open("/data/baederland1.last", "w")
+        text_file.write(req.text)
+        text_file.close()
 
 except Exception as E:
     text = str(E) + "\n\n" + traceback.format_exc()
