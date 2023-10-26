@@ -99,16 +99,21 @@ try:
         timeout=30,
         headers=headers,
     )
+    print("Printing req.text:" + req.text)
     print(req.text)
-    if lastresult1 != req.text:
-        html = ""
-        bs = BeautifulSoup(req.text, "html.parser")
+    html = ""
+    bs = BeautifulSoup(req.text, "html.parser")
+    srs = bs.findAll("div", class_="course-overview")
+    for sr in srs:
+        html = str(sr)
+        break
+    print("Printing html result: " + html)
+    print(html)
 
-        srs = bs.findAll("div", class_="course-overview")
-        for sr in srs:
-            html = str(sr)
-            break
-        print(html)
+    if lastresult1 != html:
+        text_file = open("/data/baederland1.last", "w")
+        text_file.write(html)
+        text_file.close()
         send_mail(
             smtp_to,
             "Baederland Update Aqua Rueckenfit",
@@ -121,9 +126,6 @@ try:
             + '">Baederland Kurssuche</a> <p> '
             + html,
         )
-        text_file = open("/data/baederland1.last", "w")
-        text_file.write(req.text)
-        text_file.close()
 
 except Exception as E:
     text = str(E) + "\n\n" + traceback.format_exc()
