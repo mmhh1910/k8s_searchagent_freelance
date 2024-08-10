@@ -70,10 +70,8 @@ try:
     tod = datetime.now()
     d = timedelta(days=-7)
     a = tod - d
-    # datestring = a.strftime("%Y-%m-%d")
-    datestring = "2023-07-05"
 
-    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bdate%5D=25.12.2023"
+    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bcategory%5D%5B%5D=52&course%5Bdate%5D=01.09.2024"
 
     headers = {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -89,7 +87,7 @@ try:
         "sec-fetch-user": "?1",
         "sec-gpc": "1",
         "upgrade-insecure-requests": "1",
-        "referrer": "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bdate%5D=25.12.2023",
+        "referrer": main_url,
     }
 
     req = requests.get(
@@ -110,7 +108,7 @@ try:
     print("Printing html result: " + html)
     print(html)
 
-    if lastresult1 != html:
+    if lastresult1 != html and html.find("Fehler: Es konnten keine Daten abgerufen werden")==-1:
         text_file = open("/data/baederland1.last", "w")
         text_file.write(html)
         text_file.close()

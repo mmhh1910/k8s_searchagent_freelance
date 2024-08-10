@@ -342,10 +342,13 @@ try:
 
                     add_entry(href, name, it, "freelancermap")
                     foundonpage = foundonpage + 1
-
+                print(f"Foundonpage: " + str(foundonpage))
+                print(f"Page: " + str(page))
                 if foundonpage == 0:
                     break
                 page = page + 1
+                if page > 2:
+                    break
         except Exception as E:
             if "freelancermap" not in problems_services:
                 problems_services.append("freelancermap")

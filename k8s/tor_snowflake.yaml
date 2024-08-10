@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tor-snowflake
+spec:
+  containers:
+    - image: thetorproject/snowflake-proxy:latest
+      imagePullPolicy: Always
+      name: tor-snowflake
+      resources: {}
+      command: ["/bin/proxy", "-summary-interval", "24h"]
+  restartPolicy: Always

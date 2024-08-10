@@ -92,101 +92,101 @@ spec:
                     secretKeyRef:
                       name: searchagent-freelancer
                       key: SMTP_FROM
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: searchagent-freelancer-kubernetes
-  labels:
-    app: searchagent-freelancer-kubernetes
+# ---
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: searchagent-freelancer-kubernetes
+#   labels:
+#     app: searchagent-freelancer-kubernetes
 
-spec:
-  timeZone: "Europe/Berlin"
-  schedule: "02 * * * *"
-  concurrencyPolicy: Forbid
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: searchagent-freelancer-kubernetes
+# spec:
+#   timeZone: "Europe/Berlin"
+#   schedule: "* 6 * * *"
+#   concurrencyPolicy: Forbid
+#   jobTemplate:
+#     spec:
+#       template:
+#         metadata:
+#           labels:
+#             app: searchagent-freelancer-kubernetes
 
-        spec:
-          imagePullSecrets:
-            - name: registry-secret
-          restartPolicy: OnFailure
-          volumes:
-            - name: searchagent-freelancer-kubernetes-volume
-              persistentVolumeClaim:
-                claimName: searchagent-freelancer-kubernetes-pvc
-          containers:
-            - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
-              name: searchagent-freelancer-kubernetes
-              volumeMounts:
-                - name: searchagent-freelancer-kubernetes-volume
-                  mountPath: /data
-              env:
-                - name: SEARCH_TERM
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: SEARCH_TERM
-                - name: COLORIZE_TERMS
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: COLORIZE_TERMS
-                - name: ENABLE_GULP
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: ENABLE_GULP
-                - name: ENABLE_FREELANCE_DE
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: ENABLE_FREELANCE_DE
-                - name: ENABLE_FREELANCERMAP
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: ENABLE_FREELANCERMAP
-                - name: ENABLE_ETENGO
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: ENABLE_ETENGO
-                - name: ENABLE_HAYS
-                  valueFrom:
-                    configMapKeyRef:
-                      name: searchagent-freelancer-kubernetes
-                      key: ENABLE_HAYS
+#         spec:
+#           imagePullSecrets:
+#             - name: registry-secret
+#           restartPolicy: OnFailure
+#           volumes:
+#             - name: searchagent-freelancer-kubernetes-volume
+#               persistentVolumeClaim:
+#                 claimName: searchagent-freelancer-kubernetes-pvc
+#           containers:
+#             - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
+#               name: searchagent-freelancer-kubernetes
+#               volumeMounts:
+#                 - name: searchagent-freelancer-kubernetes-volume
+#                   mountPath: /data
+#               env:
+#                 - name: SEARCH_TERM
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: SEARCH_TERM
+#                 - name: COLORIZE_TERMS
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: COLORIZE_TERMS
+#                 - name: ENABLE_GULP
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: ENABLE_GULP
+#                 - name: ENABLE_FREELANCE_DE
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: ENABLE_FREELANCE_DE
+#                 - name: ENABLE_FREELANCERMAP
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: ENABLE_FREELANCERMAP
+#                 - name: ENABLE_ETENGO
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: ENABLE_ETENGO
+#                 - name: ENABLE_HAYS
+#                   valueFrom:
+#                     configMapKeyRef:
+#                       name: searchagent-freelancer-kubernetes
+#                       key: ENABLE_HAYS
 
-                - name: SMTP_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_HOST
-                - name: SMTP_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_USERNAME
-                - name: SMTP_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_PASSWORD
-                - name: SMTP_TO
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_TO_KUBERNETES
-                - name: SMTP_FROM
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_FROM
+#                 - name: SMTP_HOST
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_HOST
+#                 - name: SMTP_USERNAME
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_USERNAME
+#                 - name: SMTP_PASSWORD
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_PASSWORD
+#                 - name: SMTP_TO
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_TO_KUBERNETES
+#                 - name: SMTP_FROM
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_FROM
 
 ---
 apiVersion: batch/v1
