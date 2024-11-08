@@ -53,7 +53,7 @@ try:
             server.quit()
 
     try:
-        f = open("nguyen.last")
+        f = open("/data/nguyen.last")
         lastresult = int(f.read())
         f.close()
     except:
@@ -99,7 +99,7 @@ try:
     print("TSOLD:", lastresult)
     if ts != lastresult:
         print("Saving change")
-        text_file = open("nguyen.last", "w")
+        text_file = open("/data/nguyen.last", "w")
         text_file.write(str(ts))
         text_file.close()
         print("Sending mail")

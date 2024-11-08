@@ -274,12 +274,19 @@ spec:
           imagePullSecrets:
             - name: registry-secret
           restartPolicy: OnFailure
+          volumes:
+            - name: searchagent-nguyen-volume
+              persistentVolumeClaim:
+                claimName: searchagent-nguyen-pvc
           containers:
             - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
               name: searchagent-nguyen
               command:
                 - python3
                 - searcher_nguyen.py
+              volumeMounts:
+                - name: searchagent-nguyen-volume
+                  mountPath: /data
               env:
                 - name: SMTP_HOST
                   valueFrom:
