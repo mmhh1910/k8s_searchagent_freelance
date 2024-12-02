@@ -12,7 +12,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import re
 import traceback
-
+import ssl 
 entries_fn = "/data/entries.json"
 
 
@@ -102,13 +102,19 @@ try:
             msg["Subject"] = subject
             msg["From"] = from_email
             msg["To"] = to_email
+            msg["CC"] = to_email
 
             part1 = MIMEText(message, "plain")
             msg.attach(part1)
             if message_html != None:
-                part2 = MIMEText(message_html, "html")
+                part2 = MIMEText(message_html, "html")            
                 msg.attach(part2)
-            server = smtplib.SMTP(server)
+            # print("SMTP server: "+server)
+            # print("SMTP username: "+smtp_username)
+            server = smtplib.SMTP(server,587)
+            server.ehlo()
+            server.starttls(context=ssl.create_default_context(purpose=ssl.Purpose.SERVER_AUTH, cafile=None, capath=None))
+            server.ehlo()
             # server.set_debuglevel(1)
             server.login(smtp_username, smtp_password)
             server.send_message(msg)
