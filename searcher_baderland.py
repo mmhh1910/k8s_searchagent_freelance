@@ -78,7 +78,7 @@ try:
     d = timedelta(days=-7)
     a = tod - d
 
-    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bcategory%5D%5B%5D=52&course%5Bdate%5D=01.01.2025"
+    main_url = "https://www.baederland.de/kurse/kursfinder/?course%5Blocation%5D=&course%5Blatlng%5D=&course%5Bpool%5D%5B%5D=17&course%5Bcategory%5D%5B%5D=60&course%5Bcategory%5D%5B%5D=52&course%5Bdate%5D=01.05.2025"
 
     headers = {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -105,15 +105,15 @@ try:
         headers=headers,
     )
     print("Printing req.text:" + req.text)
-    print(req.text)
+    #print(req.text)
     html = ""
     bs = BeautifulSoup(req.text, "html.parser")
     srs = bs.findAll("div", class_="course-overview")
     for sr in srs:
         html = str(sr)
         break
-    print("Printing html result: " + html)
-    print(html)
+    #print("Printing html result: " + html)
+    #print(html)
 
     if lastresult1 != html and html.find("Fehler: Es konnten keine Daten abgerufen werden")==-1:
         text_file = open("/data/baederland1.last", "w")
