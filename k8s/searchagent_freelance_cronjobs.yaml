@@ -250,6 +250,62 @@ spec:
                     secretKeyRef:
                       name: searchagent-freelancer
                       key: SMTP_FROM
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: check-baisse
+  labels:
+    app: check-baisse
+
+spec:
+  timeZone: "Europe/Berlin"
+  schedule: "0 7 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: check-baisse
+
+        spec:
+          imagePullSecrets:
+            - name: registry-secret
+          restartPolicy: OnFailure
+          containers:
+            - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
+              name: check-baisse
+              command:
+                - python3
+                - check_baisse.py
+              env:
+                - name: SMTP_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_HOST
+                - name: SMTP_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_USERNAME
+                - name: SMTP_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_PASSWORD
+                - name: SMTP_TO
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_TO_BADERLAND
+                - name: SMTP_FROM
+                  valueFrom:
+                    secretKeyRef:
+                      name: searchagent-freelancer
+                      key: SMTP_FROM
 # ---
 # apiVersion: batch/v1
 # kind: CronJob
