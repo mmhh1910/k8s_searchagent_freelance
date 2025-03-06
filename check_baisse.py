@@ -62,16 +62,16 @@ try:
     )
 
     #get the max value od the close column
-    max_close = spy['Close'].max()
+    max_close = spy['Close'].max().round(2)
 
     #get the latest value of the close column
-    latest_close = spy['Close'][-1]
+    latest_close = spy['Close'][-1].round(2)
 
     #get the second latest value of the close column    
-    second_latest_close = spy['Close'][-2]
+    second_latest_close = spy['Close'][-2].round(2)
 
     #check if the latest value is 20% below the highest value   
-    grenzwert = max_close * 0.8
+    grenzwert = (max_close * 0.8).round(2)
     is_baerenmarkt=latest_close < grenzwert
     was_baerenmarkt=second_latest_close < grenzwert
 
