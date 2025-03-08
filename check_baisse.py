@@ -66,9 +66,11 @@ try:
 
     #get the latest value of the close column
     latest_close = spy['Close'][-1].round(2)
+    latest_close_percent = ((latest_close / max_close * 100)-100).round(2)
 
     #get the second latest value of the close column    
     second_latest_close = spy['Close'][-2].round(2)
+    second_latest_close_percent = ((second_latest_close / max_close * 100)-100).round(2)
 
     #check if the latest value is 20% below the highest value   
     grenzwert = (max_close * 0.8).round(2)
@@ -78,8 +80,8 @@ try:
 
     print(f'max close:              {max_close}')
     print(f'max close minus 20%     {grenzwert}')
-    print(f'close yesterday:        {latest_close}')
-    print(f'close the day before:   {second_latest_close}')
+    print(f'close yesterday:        {latest_close} ({latest_close_percent} %)')
+    print(f'close the day before:   {second_latest_close} ({second_latest_close_percent} %)')
 
     if is_baerenmarkt!=was_baerenmarkt:
         if is_baerenmarkt:
@@ -87,7 +89,8 @@ try:
             send_mail(
                 smtp_to,
                 "Seit heute Bärenmarkt",
-                f'Seit heute Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close}\nclose the day before:   {second_latest_close}\n\n',
+                f'Seit heute Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n',
+                f'<html><body><pre>Seit heute Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n</pre></body></html>',
             )
 
         else:
@@ -95,13 +98,15 @@ try:
             send_mail(
                 smtp_to,
                 "Seit heute kein Bärenmarkt mehr",
-                f'Seit heute kein Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close}\nclose the day before:   {second_latest_close}\n\n',
+                f'Seit heute kein Bärenmarkt mehr!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n',
+                f'<html><body><pre>Seit heute kein Bärenmarkt mehr!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n</pre></body></html>',
             )
     else:
         send_mail(
             smtp_to,
             "Keine Änderung bezüglich Bärenmarkt",
-            f'Keine Änderung bezüglich Bärenmarkt.\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close}\nclose the day before:   {second_latest_close}\n\n',
+            f'Keine Änderung bezüglich Bärenmarkt.\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n',
+            f'<html><body><pre>Keine Änderung bezüglich Bärenmarkt.\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n</pre></body></html>',
         )
 
 
