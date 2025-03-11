@@ -90,7 +90,7 @@ try:
                 smtp_to,
                 "Seit heute Bärenmarkt",
                 f'Seit heute Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n',
-                f'<html><body><pre>Seit heute Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n</pre></body></html>',
+                f'<html><body><pre>Seit heute Bärenmarkt!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n\n\nBasis: <a href="https://de.finance.yahoo.com/quote/VWRL.AS/">Vanguard FTSE All-World UCITS ETF (VWRL.AS)</a></pre></body></html>',
             )
 
         else:
@@ -99,14 +99,14 @@ try:
                 smtp_to,
                 "Seit heute kein Bärenmarkt mehr",
                 f'Seit heute kein Bärenmarkt mehr!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n',
-                f'<html><body><pre>Seit heute kein Bärenmarkt mehr!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n</pre></body></html>',
+                f'<html><body><pre>Seit heute kein Bärenmarkt mehr!\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n\n\nBasis: <a href="https://de.finance.yahoo.com/quote/VWRL.AS/">Vanguard FTSE All-World UCITS ETF (VWRL.AS)</a></pre></body></html>',
             )
     else:
         send_mail(
             smtp_to,
             "Keine Änderung bezüglich Bärenmarkt",
             f'Keine Änderung bezüglich Bärenmarkt.\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n',
-            f'<html><body><pre>Keine Änderung bezüglich Bärenmarkt.\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n</pre></body></html>',
+            f'<html><body><pre>Keine Änderung bezüglich Bärenmarkt.\n\nmax close:              {max_close}\nmax close minus 20%     {grenzwert}\nclose yesterday:        {latest_close} ({latest_close_percent} %)\nclose the day before:   {second_latest_close} ({second_latest_close_percent} %)\n\n\n\nBasis: <a href="https://de.finance.yahoo.com/quote/VWRL.AS/">Vanguard FTSE All-World UCITS ETF (VWRL.AS)</a></pre></body></html>',
         )
 
 
