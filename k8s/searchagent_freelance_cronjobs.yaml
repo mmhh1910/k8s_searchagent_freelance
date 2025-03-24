@@ -261,7 +261,8 @@ metadata:
 
 spec:
   timeZone: "Europe/Berlin"
-  schedule: "0 7 * * *"
+  # schedule every tue-sat at 7:00
+  schedule: "0 7 * * 2-6"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
