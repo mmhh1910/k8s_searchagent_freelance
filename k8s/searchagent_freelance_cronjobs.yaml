@@ -198,7 +198,7 @@ metadata:
 
 spec:
   timeZone: "Europe/Berlin"
-  schedule: "*/15 * * * *"
+  schedule: "*/30 * * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
