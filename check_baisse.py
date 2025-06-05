@@ -113,5 +113,5 @@ try:
 
 except Exception as E:
     text = str(E) + "\n\n" + traceback.format_exc()
-    send_mail(smtp_to, "Exception searching for baederland update ", text)
+    send_mail(smtp_to, "Exception in check_baisse ", text)
     print(str(E) + "\n\n" + traceback.format_exc())        
