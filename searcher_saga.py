@@ -91,7 +91,8 @@ try:
     s=req.text.lower()
     print(req.text)
 
-    if "gerstäcker" in s or "gerstaecker" in s or "neustadt" in s or "gerst&#228;cker" in s or "gerst&auml;cker" in s :
+    #if "gerstäcker" in s or "gerstaecker" in s or "neustadt" in s or "gerst&#228;cker" in s or "gerst&auml;cker" in s :
+    if "gerstäcker" in s or "gerstaecker" in s or "gerst&#228;cker" in s or "gerst&auml;cker" in s :
         print("Sending mail")
         send_mail(
             smtp_to,

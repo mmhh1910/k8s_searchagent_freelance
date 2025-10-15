@@ -370,68 +370,68 @@ spec:
 #                       name: searchagent-freelancer
 #                       key: SMTP_FROM
 
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: searchagent-rau
-  labels:
-    app: searchagent-rau
+# ---
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: searchagent-rau
+#   labels:
+#     app: searchagent-rau
 
-spec:
-  timeZone: "Europe/Berlin"
-  schedule: "*/30 * * * *"
-  concurrencyPolicy: Forbid
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: searchagent-rau
+# spec:
+#   timeZone: "Europe/Berlin"
+#   schedule: "*/30 * * * *"
+#   concurrencyPolicy: Forbid
+#   jobTemplate:
+#     spec:
+#       template:
+#         metadata:
+#           labels:
+#             app: searchagent-rau
 
-        spec:
-          imagePullSecrets:
-            - name: registry-secret
-          restartPolicy: OnFailure
-          volumes:
-            - name: searchagent-rau-volume
-              persistentVolumeClaim:
-                claimName: searchagent-rau-pvc
-          containers:
-            - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
-              name: searchagent-rau
-              command:
-                - python3
-                - searcher_rau.py
-              volumeMounts:
-                - name: searchagent-rau-volume
-                  mountPath: /data
-              env:
-                - name: SMTP_HOST
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_HOST
-                - name: SMTP_USERNAME
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_USERNAME
-                - name: SMTP_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_PASSWORD
-                - name: SMTP_TO
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_TO_BADERLAND
-                - name: SMTP_FROM
-                  valueFrom:
-                    secretKeyRef:
-                      name: searchagent-freelancer
-                      key: SMTP_FROM
+#         spec:
+#           imagePullSecrets:
+#             - name: registry-secret
+#           restartPolicy: OnFailure
+#           volumes:
+#             - name: searchagent-rau-volume
+#               persistentVolumeClaim:
+#                 claimName: searchagent-rau-pvc
+#           containers:
+#             - image: eu-frankfurt-1.ocir.io/frs4lzee0jfi/searchagent_freelancer:latest
+#               name: searchagent-rau
+#               command:
+#                 - python3
+#                 - searcher_rau.py
+#               volumeMounts:
+#                 - name: searchagent-rau-volume
+#                   mountPath: /data
+#               env:
+#                 - name: SMTP_HOST
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_HOST
+#                 - name: SMTP_USERNAME
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_USERNAME
+#                 - name: SMTP_PASSWORD
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_PASSWORD
+#                 - name: SMTP_TO
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_TO_BADERLAND
+#                 - name: SMTP_FROM
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: searchagent-freelancer
+#                       key: SMTP_FROM
 
 ---
 apiVersion: batch/v1
