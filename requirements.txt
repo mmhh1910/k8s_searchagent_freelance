@@ -6,3 +6,4 @@ requests==2.32.4
 soupsieve==2.7
 urllib3==2.4.0
 yfinance==0.2.62
+python-certifi-win32
