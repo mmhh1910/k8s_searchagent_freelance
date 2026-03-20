@@ -60,16 +60,16 @@ try:
         period='max',
         interval='1d'
     )
-
+    print(spy)
     #get the max value od the close column
     max_close = spy['Close'].max().round(2)
 
     #get the latest value of the close column
-    latest_close = spy['Close'][-1].round(2)
+    latest_close = spy['Close'].iloc[-1].round(2)
     latest_close_percent = ((latest_close / max_close * 100)-100).round(2)
 
     #get the second latest value of the close column    
-    second_latest_close = spy['Close'][-2].round(2)
+    second_latest_close = spy['Close'].iloc[-2].round(2)
     second_latest_close_percent = ((second_latest_close / max_close * 100)-100).round(2)
 
     #check if the latest value is 20% below the highest value   
